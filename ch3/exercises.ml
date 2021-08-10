@@ -11,3 +11,7 @@ let rec product = function
 let rec concat = function
   | [] -> ""
   | hd::tl -> hd ^ (concat tl)
+
+let patterns_1 = function
+  | "bigred"::tl -> true
+  | _ -> false

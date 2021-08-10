@@ -11,6 +11,8 @@ let tests = "test suite for exercises" >::: [
   "concat_zero" >:: (fun _ -> assert_equal "" (concat []) ~printer:(fun v -> v));
   "concat_one" >:: (fun _ -> assert_equal "james" (concat ["james"]) ~printer:(fun v -> v));
   "concat_many" >:: (fun _ -> assert_equal "jamesjoyce" (concat ["james";"joyce"]) ~printer:(fun v -> v));
+  "patterns 1 false" >:: (fun _ -> assert_equal false (patterns_1 ["blue";"bigred"]) ~printer:string_of_bool);
+  "patterns 1 true" >:: (fun _ -> assert_equal true (patterns_1 ["bigred";"blue"]) ~printer:string_of_bool);
 ]
 
 let _ = run_test_tt_main tests
