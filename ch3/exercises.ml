@@ -7,3 +7,7 @@ let list_expr_3 () = [1] @ [2;3;4] @ [5]
 let rec product = function
   | [] -> 1
   | hd::tl -> hd * (product tl)
+
+let rec concat = function
+  | [] -> ""
+  | hd::tl -> hd ^ (concat tl)

@@ -8,6 +8,9 @@ let tests = "test suite for exercises" >::: [
   "product_zero" >:: (fun _ -> assert_equal 1 (product []) ~printer:string_of_int);
   "product_one" >:: (fun _ -> assert_equal 5 (product [5]) ~printer:string_of_int);
   "product_many" >:: (fun _ -> assert_equal 10 (product [5;2]) ~printer:string_of_int);
+  "concat_zero" >:: (fun _ -> assert_equal "" (concat []) ~printer:(fun v -> v));
+  "concat_one" >:: (fun _ -> assert_equal "james" (concat ["james"]) ~printer:(fun v -> v));
+  "concat_many" >:: (fun _ -> assert_equal "jamesjoyce" (concat ["james";"joyce"]) ~printer:(fun v -> v));
 ]
 
 let _ = run_test_tt_main tests
