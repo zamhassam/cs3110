@@ -20,3 +20,7 @@ let patterns_2 = function
   | h1::h2::[] -> true
   | h1::h2::h3::h4::[] -> true
   | _ -> false
+
+let patterns_3 = function
+  | h1::h2::tl -> h1 = h2
+  | _ -> false
