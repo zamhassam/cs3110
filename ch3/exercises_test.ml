@@ -13,6 +13,9 @@ let tests = "test suite for exercises" >::: [
   "concat_many" >:: (fun _ -> assert_equal "jamesjoyce" (concat ["james";"joyce"]) ~printer:(fun v -> v));
   "patterns 1 false" >:: (fun _ -> assert_equal false (patterns_1 ["blue";"bigred"]) ~printer:string_of_bool);
   "patterns 1 true" >:: (fun _ -> assert_equal true (patterns_1 ["bigred";"blue"]) ~printer:string_of_bool);
+  "patterns_2 false" >:: (fun _ -> assert_equal false (patterns_2 [1;2;3]) ~printer:string_of_bool);
+  "patterns_2 true_2" >:: (fun _ -> assert_equal true (patterns_2 [1;2]) ~printer:string_of_bool);
+  "patterns_2 true_4" >:: (fun _ -> assert_equal true (patterns_2 [1;2;3;4]) ~printer:string_of_bool);
 ]
 
 let _ = run_test_tt_main tests

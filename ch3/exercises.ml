@@ -15,3 +15,8 @@ let rec concat = function
 let patterns_1 = function
   | "bigred"::tl -> true
   | _ -> false
+
+let patterns_2 = function
+  | h1::h2::[] -> true
+  | h1::h2::h3::h4::[] -> true
+  | _ -> false
