@@ -24,3 +24,11 @@ let patterns_2 = function
 let patterns_3 = function
   | h1::h2::tl -> h1 = h2
   | _ -> false
+
+let library_1 (x : int list) = 
+  match (List.nth_opt x (5 - 1)) with
+  | Some n -> n
+  | None -> 0
+
+let library_2 (x : int list) = 
+  List.rev (List.sort Stdlib.compare x)
