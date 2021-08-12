@@ -39,16 +39,22 @@ let library_puzzle_1 (x: 'a list) =
 let library_puzzle_2 (x: int list) =
   List.mem 0 x
 
+let rec take_tl_rec n input output =
+  if n = 0 || input = [] then 
+    output
+  else
+    take_tl_rec (n - 1) (List.tl input) ((List.hd input)::output)
+
 let rec take (n: int) (x: 'a list) =
-  if n = 0 || x = [] then 
-    []
-  else 
-    (List.hd x)::(take (n - 1) (List.tl x))
+  List.rev (take_tl_rec n x [])
+
+let rec drop_tl_rec n input output =
+  if input = [] then
+    output
+  else if n = 0 then
+    drop_tl_rec 0 (List.tl input) (List.hd input::output)
+  else
+    drop_tl_rec (n - 1) (List.tl input) output
 
 let rec drop (n: int) (x: 'a list) =
-  if x = [] then
-    []
-  else if n = 0 then
-    (List.hd x)::(drop 0 (List.tl x))
-  else
-    drop (n - 1) (List.tl x)
+  List.rev (drop_tl_rec n x [])
