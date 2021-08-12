@@ -23,6 +23,13 @@ let tests = "test suite for exercises" >::: [
   "library_1_invalid_length" >:: (fun _ -> assert_equal 0 (library_1 [1;2;3;4]) ~printer:string_of_int);
   "library_1_valid_length" >:: (fun _ -> assert_equal 5 (library_1 [1;2;3;4;5;6]) ~printer:string_of_int);
   "library_2" >:: (fun _ -> assert_equal [6;5;4;3;2;1] (library_2 [2;1;3;6;5;4]) ~printer:(print_list string_of_int));
+  "library_puzzle_1" >:: (fun _ -> assert_equal 4 (library_puzzle_1 [2;1;3;6;5;4]) ~printer:string_of_int);
+  "library_puzzle_2_false" >:: (fun _ -> assert_equal false (library_puzzle_2 [2;1;3;6;5;4]) ~printer:string_of_bool);
+  "library_puzzle_2_true" >:: (fun _ -> assert_equal true (library_puzzle_2 [2;1;3;0;5;4]) ~printer:string_of_bool);
+  "take_happy_path" >:: (fun _ -> assert_equal [1;2;3] (take 3 [1;2;3;4;5]) ~printer:(print_list string_of_int));
+  "take_list_smaller_than_n" >:: (fun _ -> assert_equal [1;2;3;4;5] (take 6 [1;2;3;4;5]) ~printer:(print_list string_of_int));
+  "drop_happy_path" >:: (fun _ -> assert_equal [4;5] (drop 3 [1;2;3;4;5]) ~printer:(print_list string_of_int));
+  "drop_list_smaller_than_n" >:: (fun _ -> assert_equal [] (drop 7 [1;2;3;4;5]) ~printer:(print_list string_of_int));
 ]
 
 let _ = run_test_tt_main tests

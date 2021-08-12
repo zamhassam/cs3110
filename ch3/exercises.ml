@@ -32,3 +32,23 @@ let library_1 (x : int list) =
 
 let library_2 (x : int list) = 
   List.rev (List.sort Stdlib.compare x)
+
+let library_puzzle_1 (x: 'a list) =
+  List.hd (List.rev x)
+
+let library_puzzle_2 (x: int list) =
+  List.mem 0 x
+
+let rec take (n: int) (x: 'a list) =
+  if n = 0 || x = [] then 
+    []
+  else 
+    (List.hd x)::(take (n - 1) (List.tl x))
+
+let rec drop (n: int) (x: 'a list) =
+  if x = [] then
+    []
+  else if n = 0 then
+    (List.hd x)::(drop 0 (List.tl x))
+  else
+    drop (n - 1) (List.tl x)
