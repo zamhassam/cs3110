@@ -1,7 +1,7 @@
 open OUnit2
 open Exercises
 
-let print_list to_string v = String.concat " " (List.map to_string v)
+let print_list to_string v = "[" ^ String.concat ";" (List.map to_string v) ^ "]"
 
 let tests = "test suite for exercises" >::: [
   "list expr 1" >:: (fun _ -> assert_equal [1;2;3;4;5] (list_expr_1 ()) ~printer:(print_list string_of_int));
@@ -37,6 +37,12 @@ let tests = "test suite for exercises" >::: [
   "is_unimodal_true_on_way_down" >:: (fun _ -> assert_equal true (is_unimodal [2;3;4;5;4;3]) ~printer:string_of_bool);
   "is_unimodal_false_on_way_down" >:: (fun _ -> assert_equal false (is_unimodal [2;3;4;5;4;3;4;3]) ~printer:string_of_bool);
   "is_unimodal_true_only_down" >:: (fun _ -> assert_equal true (is_unimodal [6;5;4;3;2;1]) ~printer:string_of_bool);
+  "add_to_each_1" >:: (fun _ -> assert_equal [[1]] (add_to_each 1 [[]]) ~printer:(print_list (print_list string_of_int)));
+  "add_to_each_2" >:: (fun _ -> assert_equal [[2];[2;1]] (add_to_each 2 [[];[1]]) ~printer:(print_list (print_list string_of_int)));
+  "add_to_each_3" >:: (fun _ -> assert_equal [[3];[3;2];[3;2;1]] (add_to_each 3 [[];[2];[2;1]]) ~printer:(print_list (print_list string_of_int)));
+  "powerset_1" >:: (fun _ -> assert_equal  [[1];[]] (powerset [1]) ~printer:(print_list (print_list string_of_int)));
+  "powerset_2" >:: (fun _ -> assert_equal  [[1;2];[1];[2];[]] (powerset [1;2]) ~printer:(print_list (print_list string_of_int)));
+  "powerset_3" >:: (fun _ -> assert_equal  [[1;2;3];[1;2];[1;3];[1];[2;3];[2];[3];[]] (powerset [1;2;3]) ~printer:(print_list (print_list string_of_int)));
 ]
 
 let _ = run_test_tt_main tests

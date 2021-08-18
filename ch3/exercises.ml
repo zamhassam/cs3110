@@ -79,3 +79,39 @@ let is_unimodal (x: int list) =
   match x with
   | hd::tl -> is_unimodal_rec true hd x
   | [] -> true
+
+let rec add_to_each (x: int) (lst: int list list) =
+  match lst with
+  | hd::tl -> (x::hd)::(add_to_each x tl)
+  | [] -> []
+
+let rec powerset (x: int list) =
+  match x with
+  | hd::tl -> let powerset_tail = (powerset tl) in (add_to_each hd powerset_tail) @ powerset_tail
+  | [] -> [[]]
+
+(*
+0:
+[]
+
+1: 
+[1]
+[]
+
+2:
+[1;2]
+[2]
+[1]
+[]
+
+3:
+[1;2;]
+[2;3]
+[1;3]
+[3]
+[1;2]
+[2]
+[1]
+[]
+
+*)
