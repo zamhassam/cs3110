@@ -58,3 +58,24 @@ let rec drop_tl_rec n input output =
 
 let rec drop (n: int) (x: 'a list) =
   List.rev (drop_tl_rec n x [])
+
+let rec is_unimodal_rec (on_way_up: bool) (prev: int) (x: int list) =
+  if on_way_up then
+    match x with
+    | hd::tl -> 
+      if hd >= prev then
+        (* keep going up *)
+        is_unimodal_rec on_way_up hd tl 
+      else
+        (* flip to going down *)
+        is_unimodal_rec false hd tl
+    | [] -> true
+  else
+    match x with
+    | hd::tl -> if hd <= prev then is_unimodal_rec on_way_up hd tl else false
+    | [] -> true
+
+let is_unimodal (x: int list) =
+  match x with
+  | hd::tl -> is_unimodal_rec true hd x
+  | [] -> true

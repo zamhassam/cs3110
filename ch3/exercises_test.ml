@@ -30,6 +30,13 @@ let tests = "test suite for exercises" >::: [
   "take_list_smaller_than_n" >:: (fun _ -> assert_equal [1;2;3;4;5] (take 6 [1;2;3;4;5]) ~printer:(print_list string_of_int));
   "drop_happy_path" >:: (fun _ -> assert_equal [4;5] (drop 3 [1;2;3;4;5]) ~printer:(print_list string_of_int));
   "drop_list_smaller_than_n" >:: (fun _ -> assert_equal [] (drop 7 [1;2;3;4;5]) ~printer:(print_list string_of_int));
+  "is_unimodal_nil" >:: (fun _ -> assert_equal true (is_unimodal []) ~printer:string_of_bool);
+  "is_unimodal_constant" >:: (fun _ -> assert_equal true (is_unimodal [5;5;5]) ~printer:string_of_bool);
+  "is_unimodal_true_on_way_up" >:: (fun _ -> assert_equal true (is_unimodal [2;3;4;5]) ~printer:string_of_bool);
+  "is_unimodal_false_on_way_up" >:: (fun _ -> assert_equal false (is_unimodal [2;3;4;5;4;6]) ~printer:string_of_bool);
+  "is_unimodal_true_on_way_down" >:: (fun _ -> assert_equal true (is_unimodal [2;3;4;5;4;3]) ~printer:string_of_bool);
+  "is_unimodal_false_on_way_down" >:: (fun _ -> assert_equal false (is_unimodal [2;3;4;5;4;3;4;3]) ~printer:string_of_bool);
+  "is_unimodal_true_only_down" >:: (fun _ -> assert_equal true (is_unimodal [6;5;4;3;2;1]) ~printer:string_of_bool);
 ]
 
 let _ = run_test_tt_main tests
