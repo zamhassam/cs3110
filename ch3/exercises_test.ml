@@ -43,6 +43,10 @@ let tests = "test suite for exercises" >::: [
   "powerset_1" >:: (fun _ -> assert_equal  [[1];[]] (powerset [1]) ~printer:(print_list (print_list string_of_int)));
   "powerset_2" >:: (fun _ -> assert_equal  [[1;2];[1];[2];[]] (powerset [1;2]) ~printer:(print_list (print_list string_of_int)));
   "powerset_3" >:: (fun _ -> assert_equal  [[1;2;3];[1;2];[1;3];[1];[2;3];[2];[3];[]] (powerset [1;2;3]) ~printer:(print_list (print_list string_of_int)));
+  "safe_hd_none" >:: (fun _ -> assert_equal None (safe_hd []));
+  "safe_hd_some" >:: (fun _ -> assert_equal (Some 1) (safe_hd [1]));
+  "safe_tl_none" >:: (fun _ -> assert_equal None (safe_tl []));
+  "safe_tl_some" >:: (fun _ -> assert_equal (Some 1) (safe_tl [3;2;1]));
 ]
 
 let _ = run_test_tt_main tests

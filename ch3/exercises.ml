@@ -90,28 +90,46 @@ let rec powerset (x: int list) =
   | hd::tl -> let powerset_tail = (powerset tl) in (add_to_each hd powerset_tail) @ powerset_tail
   | [] -> [[]]
 
-(*
-0:
-[]
+(* let rec print_int_list = function
+  | [] -> ()
+  | ht::t -> 
+    print_int ht;
+    print_newline ();
+    print_int_list t; *)
 
-1: 
-[1]
-[]
+(* let print_int_list_iter (lst: int list) =
+    List.iter (
+      fun lst -> (
+        print_int lst; 
+        print_newline ()
+      )
+    ) lst *)
 
-2:
-[1;2]
-[2]
-[1]
-[]
+type student = { first_name: string; last_name: string; gpa: float}
 
-3:
-[1;2;]
-[2;3]
-[1;3]
-[3]
-[1;2]
-[2]
-[1]
-[]
+let student_1 = {first_name = "John"; last_name = "Smith"; gpa = 1.2}
 
-*)
+let student_2 = function
+  | {first_name; last_name; gpa} -> (first_name, last_name)
+
+let student_3 first_name last_name gpa =
+  {first_name = first_name; last_name = last_name; gpa = gpa}
+
+type poketype = Normal | Fire | Water
+
+type pokemon = { name: string; hp: int; ptype: poketype }
+
+let charizard = {name = "charizard"; hp = 78; ptype = Fire}
+
+let squirtle = {name = "squirtle"; hp = 44; ptype = Water}
+
+let safe_hd (x: 'a list) : 'a option =
+  match x with
+  | hd::tl -> Some hd
+  | [] -> None
+
+let rec safe_tl (x: 'a list) : 'a option =
+  match x with
+  | hd::[] -> Some hd
+  | hd::tl -> safe_tl tl
+  | [] -> None
