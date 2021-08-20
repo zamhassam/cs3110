@@ -61,6 +61,10 @@ let tests = "test suite for exercises" >::: [
   "is_before_true" >:: (fun _ -> assert_equal true (is_before (2021, 1, 13) (2021, 3, 8)) ~printer:string_of_bool);
   "earliest_none" >:: (fun _ -> assert_equal None (earliest []));
   "earliest_some" >:: (fun _ -> assert_equal (Some (2021, 1, 13)) (earliest [(2021, 2, 28);(2021, 1, 13);(2021, 3, 8)]) ~printer:(print_option (fun x -> let (year, month, date) = x in sprintf "%d,%d,%d" year month date)));
+  "assoc_list" >:: (fun _ -> assert_equal (Some "two") (assoc_list ()) ~printer:(print_option (fun x -> x)));
+  "quadrant_1" >:: (fun _ -> assert_equal (Some I) (quadrant (2,3)));
+  "depth_1" >:: (fun _ -> assert_equal 1 (depth (Node(5, Leaf, Leaf))) ~printer:string_of_int);
+  "depth_3" >:: (fun _ -> assert_equal 3 (depth (Node(4, Node(2, Node(1,Leaf,Leaf), Node(3,Leaf,Leaf) ), Node(5, Node(6,Leaf,Leaf), Node(7,Leaf,Leaf) ) ))) ~printer:string_of_int);
 ]
 
 let _ = run_test_tt_main tests

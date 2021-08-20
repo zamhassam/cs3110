@@ -166,3 +166,61 @@ let rec earliest (dates: (int * int * int) list) : (int * int * int) option =
     match (earliest tl) with
     | None -> Some hd
     | Some d -> if (is_before hd d) then Some hd else Some d
+
+(* insert a binding from key k to value v in association list d *)
+let insert k v d = (k,v)::d
+
+(* find the value v to which key k is bound, if any, in the assocation list *)
+let rec lookup k = function
+  | [] -> None
+  | (k',v)::t -> if k=k' then Some v else lookup k t
+
+let assoc_list () =
+  let assoc_lst = insert 3 "three" (insert 2 "two" (insert 1 "one" [])) in
+    lookup 2 assoc_lst
+
+type suit = Club | Spade | Heart | Diamond
+
+type rank = Ace | Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King
+
+type card = { suit : suit ; rank : rank }
+
+let all_cards () =
+  [
+    {suit = Heart; rank = Three},
+    {suit = Club; rank = Jack}
+  ]
+
+type quad = I | II | III | IV
+type sign = Neg | Zero | Pos
+
+let sign (x:int) : sign = 
+  if x = 0 then
+    Zero
+  else if x > 0 then
+    Pos
+  else
+    Neg
+
+let quadrant : int * int -> quad option = fun (x,y) ->
+  match ((sign x), (sign y)) with
+    | (Pos, Pos) -> Some I
+    | (Neg, Pos) -> Some II
+    | (Neg, Neg) -> Some III
+    | (Pos, Neg) -> Some IV
+    | _ -> None
+
+type 'a tree = 
+  | Leaf 
+  | Node of 'a * 'a tree * 'a tree
+
+let rec depth_rec (cur: 'a tree) (champion: int) (cur_depth: int) : int =
+  match cur with
+  | Leaf -> if cur_depth > champion then cur_depth else champion
+  | Node (_, left, right) -> 
+    max 
+    (depth_rec left champion (cur_depth + 1)) 
+    (depth_rec right champion (cur_depth + 1))
+
+let depth (x: 'a tree) : int =
+  depth_rec x 0 0
