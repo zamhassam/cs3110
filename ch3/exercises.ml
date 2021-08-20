@@ -133,3 +133,36 @@ let rec safe_tl (x: 'a list) : 'a option =
   | hd::[] -> Some hd
   | hd::tl -> safe_tl tl
   | [] -> None
+
+let rec max_hp (pokemon_lst: pokemon list) : pokemon option =
+  match pokemon_lst with
+  | [] -> None
+  | hd::tl -> 
+    match (max_hp tl) with
+    | None -> Some hd
+    | Some p -> if p.hp > hd.hp then Some p else Some hd
+
+let is_before (before: int * int * int) (after: int * int * int) : bool =
+  let (before_year, before_month, before_date) = before in
+    let (after_year, after_month, after_date) = after in
+      if before_year < after_year then
+        true
+      else if before_year > after_year then
+        false
+      else if before_month < after_month then
+        true
+      else if before_month > after_month then
+        false
+      else if before_date < after_date then
+        true
+      else
+        false
+
+
+let rec earliest (dates: (int * int * int) list) : (int * int * int) option =
+  match dates with
+  | [] -> None
+  | hd::tl ->
+    match (earliest tl) with
+    | None -> Some hd
+    | Some d -> if (is_before hd d) then Some hd else Some d

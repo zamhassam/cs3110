@@ -1,7 +1,13 @@
 open OUnit2
 open Exercises
+open Printf
 
 let print_list to_string v = "[" ^ String.concat ";" (List.map to_string v) ^ "]"
+
+let print_option to_string v =
+  match v with
+  | None -> "None"
+  | Some x -> "Some " ^ (to_string x)
 
 let tests = "test suite for exercises" >::: [
   "list expr 1" >:: (fun _ -> assert_equal [1;2;3;4;5] (list_expr_1 ()) ~printer:(print_list string_of_int));
@@ -47,6 +53,14 @@ let tests = "test suite for exercises" >::: [
   "safe_hd_some" >:: (fun _ -> assert_equal (Some 1) (safe_hd [1]));
   "safe_tl_none" >:: (fun _ -> assert_equal None (safe_tl []));
   "safe_tl_some" >:: (fun _ -> assert_equal (Some 1) (safe_tl [3;2;1]));
+  "max_hp_none" >:: (fun _ -> assert_equal (None) (max_hp []));
+  "max_hp_some_1" >:: (fun _ -> assert_equal (Some {name="charizard";hp=77;ptype=Fire}) (max_hp [{name="charizard";hp=77;ptype=Fire}]));
+  "max_hp_some_3" >:: (fun _ -> assert_equal (Some {name="charizard";hp=77;ptype=Fire}) (max_hp [{name="squirtle";hp=55;ptype=Fire};{name="charizard";hp=77;ptype=Fire};{name="geodude";hp=44;ptype=Fire}]));
+  "is_before_false" >:: (fun _ -> assert_equal false (is_before (2021, 2, 28) (2021, 1, 13)) ~printer:string_of_bool);
+  "is_before_true" >:: (fun _ -> assert_equal true (is_before (2021, 1, 13) (2021, 2, 28)) ~printer:string_of_bool);
+  "is_before_true" >:: (fun _ -> assert_equal true (is_before (2021, 1, 13) (2021, 3, 8)) ~printer:string_of_bool);
+  "earliest_none" >:: (fun _ -> assert_equal None (earliest []));
+  "earliest_some" >:: (fun _ -> assert_equal (Some (2021, 1, 13)) (earliest [(2021, 2, 28);(2021, 1, 13);(2021, 3, 8)]) ~printer:(print_option (fun x -> let (year, month, date) = x in sprintf "%d,%d,%d" year month date)));
 ]
 
 let _ = run_test_tt_main tests
