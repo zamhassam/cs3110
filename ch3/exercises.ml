@@ -224,3 +224,28 @@ let rec depth_rec (cur: 'a tree) (champion: int) (cur_depth: int) : int =
 
 let depth (x: 'a tree) : int =
   depth_rec x 0 0
+
+let rec same_shape (a: 'a tree) (b: 'a tree) : bool =
+  match (a, b) with
+  | (Leaf, Leaf) -> true
+  | (Node (val1, a_left, a_right), Node (val2, b_left, b_right)) -> 
+    val1 = val2 
+    && (same_shape a_left b_left) 
+    && (same_shape a_right b_right)
+  | (Node (_, _, _), Leaf) -> false
+  | (Leaf, Node (_, _, _)) -> false
+
+let rec list_max_rec lst champion =
+  match lst with
+  | [] -> champion
+  | hd::tl -> max champion (list_max_rec tl (max hd champion))
+
+let list_max (lst: int list) : int =
+  match lst with
+    | [] -> raise (Failure "empty")
+    | hd::tl -> list_max_rec tl hd
+
+let list_max_string (lst: int list) : string =
+  match lst with
+    | [] -> "empty"
+    | hd::tl -> string_of_int (list_max_rec tl hd)

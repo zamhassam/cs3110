@@ -65,6 +65,13 @@ let tests = "test suite for exercises" >::: [
   "quadrant_1" >:: (fun _ -> assert_equal (Some I) (quadrant (2,3)));
   "depth_1" >:: (fun _ -> assert_equal 1 (depth (Node(5, Leaf, Leaf))) ~printer:string_of_int);
   "depth_3" >:: (fun _ -> assert_equal 3 (depth (Node(4, Node(2, Node(1,Leaf,Leaf), Node(3,Leaf,Leaf) ), Node(5, Node(6,Leaf,Leaf), Node(7,Leaf,Leaf) ) ))) ~printer:string_of_int);
+  "same_shape_false" >:: (fun _ -> assert_equal false (same_shape (Node(4, Node(2, Node(1,Leaf,Leaf), Node(3,Leaf,Leaf) ), Node(5, Node(6,Leaf,Leaf), Node(7,Leaf,Leaf)))) (Node(5, Leaf, Leaf))) ~printer:string_of_bool);
+  "same_shape_1_true" >:: (fun _ -> assert_equal true (same_shape (Node(5, Leaf, Leaf)) (Node(5, Leaf, Leaf))) ~printer:string_of_bool);
+  "same_shape_2_true" >:: (fun _ -> assert_equal true (same_shape (Node(4, Node(2, Node(1,Leaf,Leaf), Node(3,Leaf,Leaf) ), Node(5, Node(6,Leaf,Leaf), Node(7,Leaf,Leaf)))) (Node(4, Node(2, Node(1,Leaf,Leaf), Node(3,Leaf,Leaf) ), Node(5, Node(6,Leaf,Leaf), Node(7,Leaf,Leaf))))) ~printer:string_of_bool);
+  "list_max_empty" >:: (fun _ -> assert_raises (Failure "empty") (fun () -> list_max []));
+  "list_max" >:: (fun _ -> assert_equal 5 (list_max [1;2;5;3;2]) ~printer:string_of_int);
+  "list_max_string_empty" >:: (fun _ -> assert_equal "empty" (list_max_string []));
+  "list_max_string" >:: (fun _ -> assert_equal "5" (list_max_string [1;2;5;3;2]));
 ]
 
 let _ = run_test_tt_main tests
