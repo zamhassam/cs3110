@@ -249,3 +249,17 @@ let list_max_string (lst: int list) : string =
   match lst with
     | [] -> "empty"
     | hd::tl -> string_of_int (list_max_rec tl hd)
+
+type bst_result =
+  | MinMax of int * int
+  | Empty
+  | Invalid
+
+let rec is_bst_rec (tree: 'a tree) : bst_result =
+  Empty
+
+let is_bst (tree: 'a tree) : bool =
+  match is_bst_rec tree with
+  | Empty -> false
+  | Invalid -> false
+  | MinMax (min, max) -> false

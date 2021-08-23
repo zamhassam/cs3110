@@ -72,6 +72,8 @@ let tests = "test suite for exercises" >::: [
   "list_max" >:: (fun _ -> assert_equal 5 (list_max [1;2;5;3;2]) ~printer:string_of_int);
   "list_max_string_empty" >:: (fun _ -> assert_equal "empty" (list_max_string []));
   "list_max_string" >:: (fun _ -> assert_equal "5" (list_max_string [1;2;5;3;2]));
+  "is_bst_empty" >:: (fun _ -> assert_equal false (is_bst (Leaf)) ~printer:string_of_bool);
+  "is_bst_valid" >:: (fun _ -> assert_equal false (is_bst (Node)) ~printer:string_of_bool);
 ]
 
 let _ = run_test_tt_main tests
