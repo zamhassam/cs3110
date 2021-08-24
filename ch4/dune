@@ -1,0 +1,4 @@
+(test
+    (name exercises_test)
+    (libraries ounit2)
+)

@@ -1,0 +1,14 @@
+EXCLUDE_QUERY_DIR
+B /home/zameer.hassam/.opam/4.10.0/lib/bytes
+B /home/zameer.hassam/.opam/4.10.0/lib/ocaml
+B /home/zameer.hassam/.opam/4.10.0/lib/ounit2
+B /home/zameer.hassam/.opam/4.10.0/lib/ounit2/advanced
+B /home/zameer.hassam/.opam/4.10.0/lib/stdlib-shims
+B _build/default/.exercises_test.eobjs/byte
+S /home/zameer.hassam/.opam/4.10.0/lib/bytes
+S /home/zameer.hassam/.opam/4.10.0/lib/ocaml
+S /home/zameer.hassam/.opam/4.10.0/lib/ounit2
+S /home/zameer.hassam/.opam/4.10.0/lib/ounit2/advanced
+S /home/zameer.hassam/.opam/4.10.0/lib/stdlib-shims
+S .
+FLG -open Dune__exe -w @1..3@5..28@30..39@43@46..47@49..57@61..62-40 -strict-sequence -strict-formats -short-paths -keep-locs
