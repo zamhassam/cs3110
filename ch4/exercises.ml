@@ -10,13 +10,11 @@ let rec repeat (f: 'a -> 'a) (n: int) (x: 'a) : 'a =
   | _ -> repeat f (n - 1) (f x)
 
 let product_left (x: float list) : float =
-  if x = [] then
-    1.0
-  else
-    List.fold_left ( *. ) 1.0 x
+  match x with
+  | [] -> 1.0
+  | _ -> List.fold_left ( *. ) 1.0 x
 
 let product_right (x: float list) : float =
-  if x = [] then
-    1.0
-  else
-    List.fold_right ( *. ) x 1.0
+  match x with
+  | [] -> 1.0
+  | _ -> List.fold_right ( *. ) x 1.0
