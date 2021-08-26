@@ -15,6 +15,15 @@ let tests = "test suite for exercises" >::: [
   "cliplist_rec" >:: (fun _ -> assert_equal [0;0;2;4;6;8;10;10;10] (cliplist_rec [-2;0;2;4;6;8;10;12;14]) ~printer:(print_list string_of_int));
   "sum_cube_odd" >:: (fun _ -> assert_equal ((1*1*1) + (3*3*3) + (5*5*5)) (sum_cube_odd 5) ~printer:string_of_int);
   "sum_cube_odd_pipeline" >:: (fun _ -> assert_equal ((1*1*1) + (3*3*3) + (5*5*5)) (sum_cube_odd_pipeline 5) ~printer:string_of_int);
+  "exists_rec_empty" >:: (fun _ -> assert_equal false (exists_rec (fun x -> x = 3) []) ~printer:string_of_bool);
+  "exists_rec_false" >:: (fun _ -> assert_equal false (exists_rec (fun x -> x = 3) [1;2;4]) ~printer:string_of_bool);
+  "exists_rec_true" >:: (fun _ -> assert_equal true (exists_rec (fun x -> x = 3) [1;2;3]) ~printer:string_of_bool);
+  "exists_fold_empty" >:: (fun _ -> assert_equal false (exists_fold (fun x -> x = 3) []) ~printer:string_of_bool);
+  "exists_fold_false" >:: (fun _ -> assert_equal false (exists_fold (fun x -> x = 3) [1;2;4]) ~printer:string_of_bool);
+  "exists_fold_true" >:: (fun _ -> assert_equal true (exists_fold (fun x -> x = 3) [1;2;3]) ~printer:string_of_bool);
+  "exists_lib_empty" >:: (fun _ -> assert_equal false (exists_lib (fun x -> x = 3) []) ~printer:string_of_bool);
+  "exists_lib_false" >:: (fun _ -> assert_equal false (exists_lib (fun x -> x = 3) [1;2;4]) ~printer:string_of_bool);
+  "exists_lib_true" >:: (fun _ -> assert_equal true (exists_lib (fun x -> x = 3) [1;2;3]) ~printer:string_of_bool);
 ]
 
 let _ = run_test_tt_main tests

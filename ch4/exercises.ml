@@ -52,3 +52,14 @@ let sum_cube_odd_pipeline (n: int) : int =
   |> List.filter is_odd
   |> List.map cube
   |> List.fold_left (+) 0
+
+let rec exists_rec (f: ('a -> bool)) (lst: 'a list) : bool =
+  match lst with
+  | [] -> false
+  | hd::tl -> (f hd) || (exists_rec f tl)
+
+let exists_fold (f: ('a -> bool)) (lst: 'a list) : bool =
+  List.fold_right (fun x acc -> acc || (f x)) lst false
+
+let exists_lib (f: ('a -> bool)) (lst: 'a list) : bool =
+  List.exists f lst
