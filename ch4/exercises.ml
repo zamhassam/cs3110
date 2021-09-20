@@ -63,3 +63,15 @@ let exists_fold (f: ('a -> bool)) (lst: 'a list) : bool =
 
 let exists_lib (f: ('a -> bool)) (lst: 'a list) : bool =
   List.exists f lst
+
+let budget_r (expenses: float list) (budget: float) : float =
+  budget -. (List.fold_right (+.) expenses 0.)
+
+let budget_l (expenses: float list) (budget: float) : float =
+  List.fold_left (-.) budget expenses
+
+let uncurry (f: ('a -> 'b -> 'c)) : ('a * 'b -> 'c) =
+  fun (a, b) -> (f a b)
+
+let curry (f: ('a * 'b -> 'c)) : ('a -> 'b -> 'c) =
+  fun a -> fun b -> f (a, b)

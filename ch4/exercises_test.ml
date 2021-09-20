@@ -24,6 +24,12 @@ let tests = "test suite for exercises" >::: [
   "exists_lib_empty" >:: (fun _ -> assert_equal false (exists_lib (fun x -> x = 3) []) ~printer:string_of_bool);
   "exists_lib_false" >:: (fun _ -> assert_equal false (exists_lib (fun x -> x = 3) [1;2;4]) ~printer:string_of_bool);
   "exists_lib_true" >:: (fun _ -> assert_equal true (exists_lib (fun x -> x = 3) [1;2;3]) ~printer:string_of_bool);
+  "budget_r_none_remaining" >:: (fun _ -> assert_equal 0. (budget_r [1.;2.;3.] 6.) ~printer:string_of_float);
+  "budget_r" >:: (fun _ -> assert_equal 0.5 (budget_r [1.;2.;3.] 6.5) ~printer:string_of_float);
+  "budget_l_none_remaining" >:: (fun _ -> assert_equal 0. (budget_l [1.;2.;3.] 6.) ~printer:string_of_float);
+  "budget_l" >:: (fun _ -> assert_equal 0.5 (budget_l [1.;2.;3.] 6.5) ~printer:string_of_float);
+  "uncurry" >:: (fun _ -> assert_equal [1;2;3;4;5] ((uncurry List.append) ([1;2;3], [4;5])));
+  "uncurry" >:: (fun _ -> assert_equal [1;2;3;4;5] ((curry (uncurry List.append)) [1;2;3] [4;5]));
 ]
 
 let _ = run_test_tt_main tests
