@@ -34,6 +34,8 @@ let tests = "test suite for exercises" >::: [
   "greater_than_3" >:: (fun _ -> assert_equal ["james";"freddie";"joyce"] (greater_than_3 ["jo";"james";"tom";"freddie";"joyce";"kai"]) ~printer:(print_list (fun x -> x)));
   "add_1" >:: (fun _ -> assert_equal [2.;3.;4.] (add_1 [1.;2.;3.]) ~printer:(print_list string_of_float));
   "join" >:: (fun _ -> assert_equal "hi,bye" (join ["hi";"bye"] ",") ~printer:(fun x -> x));
+  "map_tree" >:: (fun _ -> assert_equal (Node(2, Node(3, Leaf, Leaf), Leaf)) (tree_map (fun a -> a + 1) (Node(1, Node(2, Leaf, Leaf), Leaf))) ~printer:(fun v -> print_tree v string_of_int));
+  "unique_keys" >:: (fun _ -> assert_equal ["kim";"jack";"john"] (unique_keys [("john",1);("john",1);("jack",1);("kim",1);("john",1);("jack",1)]) ~printer:(print_list (fun x -> x)))
 ]
 
 let _ = run_test_tt_main tests

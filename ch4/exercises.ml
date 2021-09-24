@@ -4,6 +4,15 @@ let twice f x = f (f x)
 let quad = twice double
 let fourth = twice square
 
+type 'a tree =
+| Leaf
+| Node of 'a * 'a tree * 'a tree
+
+let rec print_tree (t: 'a tree) (render: 'a -> string) =
+    match t with
+    | Leaf -> ""
+    | Node(v, l, r) -> "Node(" ^ (render v) ^ ", " ^ (print_tree l render) ^ ", " ^ (print_tree r render) ^ ")"
+
 let rec repeat (f: 'a -> 'a) (n: int) (x: 'a) : 'a =
   match n with
   | 0 -> x
@@ -91,3 +100,22 @@ let add_1 (lst: float list) : float list =
 let join (lst: string list) (sep: string) : string =
     let accumulate a b = if String.length a = 0 then b else a ^ sep ^ b in
     List.fold_left accumulate "" lst
+
+let rec tree_map (f: ('a -> 'b)) (tree: 'a tree) : 'b tree =
+    match tree with
+    | Leaf -> Leaf
+    | Node(v, l, r) -> Node((f v), (tree_map f l), (tree_map f r))
+
+let rec contains (to_check: 'a) (lst: 'a list) : bool =
+    match lst with
+    | hd::tl -> if hd = to_check then true else contains to_check tl
+    | [] -> false
+
+let unique_keys (assoc: ('a * 'b) list) : 'a list =
+    List.fold_left
+    (fun accumulator next_value ->
+        if contains (fst next_value) accumulator
+        then accumulator
+        else (fst next_value)::accumulator)
+    []
+    assoc
