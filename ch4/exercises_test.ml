@@ -29,7 +29,11 @@ let tests = "test suite for exercises" >::: [
   "budget_l_none_remaining" >:: (fun _ -> assert_equal 0. (budget_l [1.;2.;3.] 6.) ~printer:string_of_float);
   "budget_l" >:: (fun _ -> assert_equal 0.5 (budget_l [1.;2.;3.] 6.5) ~printer:string_of_float);
   "uncurry" >:: (fun _ -> assert_equal [1;2;3;4;5] ((uncurry List.append) ([1;2;3], [4;5])));
-  "uncurry" >:: (fun _ -> assert_equal [1;2;3;4;5] ((curry (uncurry List.append)) [1;2;3] [4;5]));
+  "curry" >:: (fun _ -> assert_equal [1;2;3;4;5] ((curry (uncurry List.append)) [1;2;3] [4;5]));
+  "map_composition" >:: (fun _ -> assert_equal [1;3;5;7] (map_compose (fun x -> x - 1) (fun y -> y * 2) [1;2;3;4]));
+  "greater_than_3" >:: (fun _ -> assert_equal ["james";"freddie";"joyce"] (greater_than_3 ["jo";"james";"tom";"freddie";"joyce";"kai"]) ~printer:(print_list (fun x -> x)));
+  "add_1" >:: (fun _ -> assert_equal [2.;3.;4.] (add_1 [1.;2.;3.]) ~printer:(print_list string_of_float));
+  "join" >:: (fun _ -> assert_equal "hi,bye" (join ["hi";"bye"] ",") ~printer:(fun x -> x));
 ]
 
 let _ = run_test_tt_main tests

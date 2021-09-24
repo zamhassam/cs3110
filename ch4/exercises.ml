@@ -19,8 +19,8 @@ let product_right (x: float list) : float =
   | [] -> 1.0
   | _ -> List.fold_right ( *. ) x 1.0
 
-let clip n = 
-  if n < 0 then 0 
+let clip n =
+  if n < 0 then 0
   else if n > 10 then 10
   else n
 
@@ -39,8 +39,8 @@ let (--) i j =
     in from i j []
 
 let sum_cube_odd (n: int) : int =
-  List.fold_right (fun x y -> x + y) 
-                  (List.map (fun x -> x * x * x) 
+  List.fold_right (fun x y -> x + y)
+                  (List.map (fun x -> x * x * x)
                             (List.filter (fun x -> (x mod 2) != 0)
                                          (0 -- n)))
                   0
@@ -48,7 +48,7 @@ let sum_cube_odd (n: int) : int =
 let sum_cube_odd_pipeline (n: int) : int =
   let is_odd x = (x mod 2) != 0 in
   let cube x = x * x * x in
-  (0 -- n) 
+  (0 -- n)
   |> List.filter is_odd
   |> List.map cube
   |> List.fold_left (+) 0
@@ -75,3 +75,19 @@ let uncurry (f: ('a -> 'b -> 'c)) : ('a * 'b -> 'c) =
 
 let curry (f: ('a * 'b -> 'c)) : ('a -> 'b -> 'c) =
   fun a -> fun b -> f (a, b)
+
+let product_left_terse x =
+  if x = [] then 1.0 else List.fold_left ( *. ) 1.0 x
+
+let map_compose f g x =
+    List.map (fun y -> f (g y)) x
+
+let greater_than_3 (lst: string list) : string list =
+    List.filter (fun str -> String.length str > 3) lst
+
+let add_1 (lst: float list) : float list =
+    List.map (fun x -> x +. 1.) lst
+
+let join (lst: string list) (sep: string) : string =
+    let accumulate a b = if String.length a = 0 then b else a ^ sep ^ b in
+    List.fold_left accumulate "" lst
